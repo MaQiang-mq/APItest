@@ -15,7 +15,7 @@ public class juliyeservicepackage {
         .when()
                 .post("http://182.92.106.199:8090/api/sp/list").prettyPeek()
         .then()
-                //.statusCode(200) //HTTP/1.1 400
+                .statusCode(200) //HTTP/1.1 400
 //                .body("result.data.name[0]",equalTo("加载服务包"))
         ;
 
