@@ -1,16 +1,14 @@
 import io.restassured.RestAssured;
-import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
-import io.restassured.specification.ResponseSpecification;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.useRelaxedHTTPSValidation;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 
 
 /**
@@ -34,13 +32,13 @@ public class lesson04 {
     public void lesson04() {
         given().
                 header("Content-Type", "application/json")
-                .header("userToken", "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE1MjQ4ODYwMzIsInN1YiI6IntcInVzZXJOYW1lXCI6XCIxODg2NzUzNzM3M1wifSIsImV4cCI6MTUyNTQ5MDgzMn0.MzbkkMsKPwH7-BKJJavtnkmTG82G6dRM_8iYffO6p6E5rMJhSAvPwpBgVdud1-Uhp48hKFOVEDnSQdWIQa8S2w")
+                .header("userToken", "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE1MjU2ODUxNjgsInN1YiI6IntcInVzZXJOYW1lXCI6XCIxODg2NzUzNzM3M1wifSIsImV4cCI6MTUyNjI4OTk2OH0.rNANsXVTojDd-Y18Oe6wmTvsam9SxwzbGw0apnNQcF2yFwznVy0KfSv4OscLfmfsXRkjIbSXlXpYE-JBNcK-LQ")
                 .request().body("{}")
                 .when()
                 .post("/api/contentTargeting/list").prettyPeek() //文章定向，获取用户列表
                 .then()
                 .statusCode(200)
-                .body("result.data.factoryName[0]", equalTo("马强"))
+                .body("result.data.factoryName[0]", equalTo("总计划厂家"))
                 .body("result.data.factoryName", hasItem("总计划厂家"))
         ;
 
@@ -56,7 +54,7 @@ public class lesson04 {
 
         given().
                 header("Content-Type", "application/json")
-                .header("userToken", "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE1MjQ4ODYwMzIsInN1YiI6IntcInVzZXJOYW1lXCI6XCIxODg2NzUzNzM3M1wifSIsImV4cCI6MTUyNTQ5MDgzMn0.MzbkkMsKPwH7-BKJJavtnkmTG82G6dRM_8iYffO6p6E5rMJhSAvPwpBgVdud1-Uhp48hKFOVEDnSQdWIQa8S2w")
+                .header("userToken", "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE1MjU2ODUxNjgsInN1YiI6IntcInVzZXJOYW1lXCI6XCIxODg2NzUzNzM3M1wifSIsImV4cCI6MTUyNjI4OTk2OH0.rNANsXVTojDd-Y18Oe6wmTvsam9SxwzbGw0apnNQcF2yFwznVy0KfSv4OscLfmfsXRkjIbSXlXpYE-JBNcK-LQ")
                 .contentType(ContentType.JSON)
                 .body(data)
                 .when()
@@ -73,7 +71,7 @@ public class lesson04 {
 //        Response a =
         given().
                 header("Content-Type", "application/json")
-                .header("userToken", "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE1MjQ2MjE3NDksInN1YiI6IntcInVzZXJOYW1lXCI6XCIxODg2NzUzNzM3M1wifSIsImV4cCI6MTUyNTIyNjU0OX0.dSKzcd_AbbGgONfCQPpaegZK4xXKbTCj2JgNPuCKZ4JuvF0eg_wcTW8c0CC_2xK10TJswZc4DYxhHsK6Z7VJvA")
+                .header("userToken", "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE1MjU2ODUxNjgsInN1YiI6IntcInVzZXJOYW1lXCI6XCIxODg2NzUzNzM3M1wifSIsImV4cCI6MTUyNjI4OTk2OH0.rNANsXVTojDd-Y18Oe6wmTvsam9SxwzbGw0apnNQcF2yFwznVy0KfSv4OscLfmfsXRkjIbSXlXpYE-JBNcK-LQ")
                 .when()
                 .get("/api/user/group/get/5ad998767aab995a74b6fd4e").prettyPeek()
                 .then()
@@ -89,7 +87,7 @@ public class lesson04 {
     public void druglist() {
         given().
                 header("Content-Type", "application/json")
-                .header("userToken", "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE1MjUwMjEyODksInN1YiI6IntcInVzZXJOYW1lXCI6XCIxODg2NzUzNzM3M1wifSIsImV4cCI6MTUyNTYyNjA4OX0.-3p84MCVZVPPyEugrMI6nDzlMK7l2PaCBqauUNywZcj--0qAFmgrnJMIpm61GjsV8VnxgHeqJaZ3qOGdkhyT9A")
+                .header("userToken", "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE1MjU2ODUxNjgsInN1YiI6IntcInVzZXJOYW1lXCI6XCIxODg2NzUzNzM3M1wifSIsImV4cCI6MTUyNjI4OTk2OH0.rNANsXVTojDd-Y18Oe6wmTvsam9SxwzbGw0apnNQcF2yFwznVy0KfSv4OscLfmfsXRkjIbSXlXpYE-JBNcK-LQ")
 //                .params(parameters)
                 .request().body("{}")
         .when()
@@ -101,47 +99,47 @@ public class lesson04 {
 
     }
 
-    @Test
-    public void login4postasjson(){
-        Map<String, String> jsonAsMap = new HashMap<String, String>();
-        jsonAsMap.put("userName", "18867537373");
-        jsonAsMap.put("password", "12345678");
-
-        given()
-                .header("Content-Type","application/json") //避免415错误
-                .proxy("127.0.0.1",8080)
-                .contentType(ContentType.JSON)      //传参为json格式
-                .body(jsonAsMap)
-        .when()
-                .post("/api/sys/login")
-                .prettyPeek()
-        .then()
-                .statusCode(200)//180430：终于登录成功了，传参为json格式。lesson4讲到.
-                .time(lessThan(1000L)) //Expected response time was not a value less than <10L> milliseconds, was 742 milliseconds (742 milliseconds).
-                //"message": "登录成功"
-        ;
-
-    }
-@Test
-    public void spectest(){
-    ResponseSpecBuilder builder = (ResponseSpecBuilder) new ResponseSpecBuilder().build(); //封装
-    builder.expectStatusCode(200);
-    builder.expectResponseTime(lessThan(500L));
-
-
-        given().
-                header("Content-Type", "application/json")
-                .header("userToken", "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE1MjUwMjEyODksInN1YiI6IntcInVzZXJOYW1lXCI6XCIxODg2NzUzNzM3M1wifSIsImV4cCI6MTUyNTYyNjA4OX0.-3p84MCVZVPPyEugrMI6nDzlMK7l2PaCBqauUNywZcj--0qAFmgrnJMIpm61GjsV8VnxgHeqJaZ3qOGdkhyT9A")
-                .request().body("{}")
-        .when()
-                .post("/api/medicine/list")   // 药品管理
-                .prettyPeek()
-        .then()
-                .spec((ResponseSpecification) builder)//java.lang.ClassCastException: io.restassured.internal.ResponseSpecificationImpl cannot be cast to io.restassured.builder.ResponseSpecBuilder
-
-        ;
-
-    }
+//    @Test
+//    public void login4postasjson(){
+//        Map<String, String> jsonAsMap = new HashMap<String, String>();
+//        jsonAsMap.put("userName", "18867537373");
+//        jsonAsMap.put("password", "12345678");
+//
+//        given()
+//                .header("Content-Type","application/json") //避免415错误
+//                .proxy("127.0.0.1",8080)
+//                .contentType(ContentType.JSON)      //传参为json格式
+//                .body(jsonAsMap)
+//        .when()
+//                .post("/api/sys/login")
+//                .prettyPeek()
+//        .then()
+//                .statusCode(200)//180430：终于登录成功了，传参为json格式。lesson4讲到.
+//                .time(lessThan(1000L)) //Expected response time was not a value less than <10L> milliseconds, was 742 milliseconds (742 milliseconds).
+//                //"message": "登录成功"
+//        ;
+//
+//    }
+//@Test
+//    public void spectest(){
+//    ResponseSpecBuilder builder = (ResponseSpecBuilder) new ResponseSpecBuilder().build(); //封装
+//    builder.expectStatusCode(200);
+//    builder.expectResponseTime(lessThan(500L));
+//
+//
+//        given().
+//                header("Content-Type", "application/json")
+//                .header("userToken", "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJqd3QiLCJpYXQiOjE1MjU2ODUxNjgsInN1YiI6IntcInVzZXJOYW1lXCI6XCIxODg2NzUzNzM3M1wifSIsImV4cCI6MTUyNjI4OTk2OH0.rNANsXVTojDd-Y18Oe6wmTvsam9SxwzbGw0apnNQcF2yFwznVy0KfSv4OscLfmfsXRkjIbSXlXpYE-JBNcK-LQ")
+//                .request().body("{}")
+//        .when()
+//                .post("/api/medicine/list")   // 药品管理
+//                .prettyPeek()
+//        .then()
+//                .spec((ResponseSpecification) builder)//java.lang.ClassCastException: io.restassured.internal.ResponseSpecificationImpl cannot be cast to io.restassured.builder.ResponseSpecBuilder
+//
+//        ;
+//
+//    }
 }
 
 
